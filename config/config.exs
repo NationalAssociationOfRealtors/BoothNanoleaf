@@ -22,7 +22,7 @@ config :nerves_network, :default,
 config :twittex,
   token: System.get_env("TWITTER_TOKEN"),
   token_secret: System.get_env("TWITTER_SECRET"),
-  consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
+  consumer_key: System.get_env("TWITTER_CONSUMER_TOKEN"),
   consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET")
 
 # Customize the firmware. Uncomment all or parts of the following

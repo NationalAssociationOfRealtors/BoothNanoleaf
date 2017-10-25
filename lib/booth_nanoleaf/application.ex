@@ -12,7 +12,7 @@ defmodule BoothNanoleaf.Application do
       worker(BoothNanoleaf.Network, []),
       worker(BoothNanoleaf.TweetConsumer, []),
       worker(BoothNanoleaf.Twitter, []),
-      #worker(BoothNanoleaf.CO2, []),
+      worker(BoothNanoleaf.CO2, []),
 
     ]
 

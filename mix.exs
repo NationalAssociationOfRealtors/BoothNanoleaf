@@ -36,7 +36,7 @@ defmodule BoothNanoleaf.Mixfile do
   def application("host") do
     [
       mod: {BoothNanoleaf.Application, []},
-      extra_applications: [:logger, :ieq_gateway, :nanoleaf, :twittex]
+      extra_applications: [:logger, :ieq_gateway, :nanoleaf, :twittex, :gen_stage]
     ]
   end
   def application(_target) do
@@ -58,7 +58,8 @@ defmodule BoothNanoleaf.Mixfile do
       {:nerves, "~> 0.7", runtime: false},
       {:ieq_gateway, "~> 0.1.4"},
       {:nanoleaf, github: "NationalAssociationofRealtors/nanoleaf"},
-      {:twittex, "~> 0.3.4"}
+      {:twittex, "~> 0.3.4"},
+      {:gen_stage, "~> 0.12.2"}
     ] ++
     deps(@target)
   end

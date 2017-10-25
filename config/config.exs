@@ -20,6 +20,8 @@ config :nerves_network, :default,
   ]
 
 config :twittex,
+  token: System.get_env("TWITTER_TOKEN"),
+  token_secret: System.get_env("TWITTER_SECRET"),
   consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
   consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET")
 
@@ -35,7 +37,7 @@ config :twittex,
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
 config :bootloader,
-  init: [:nerves_runtime, :nerves_network, :ieq_gateway, :nanoleaf, :twittex],
+  init: [:nerves_runtime, :nerves_network, :ieq_gateway, :nanoleaf, :twittex, :gen_stage],
   app: :booth_nanoleaf
 
 # Import target specific config. This must remain at the bottom

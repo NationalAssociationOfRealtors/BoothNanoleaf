@@ -33,7 +33,7 @@ defmodule BoothNanoleaf.CO2 do
 
   def init(:ok) do
     co2 = 1..12 |> Enum.map(fn(i) -> Enum.random(500..1699) end)
-    Process.send_after(self(), :check_network, 5_000)
+    Process.send_after(self(), :check_network, 500)
     {:ok, %{co2: co2}}
   end
 

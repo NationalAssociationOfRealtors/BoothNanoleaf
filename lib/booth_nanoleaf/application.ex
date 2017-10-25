@@ -10,8 +10,10 @@ defmodule BoothNanoleaf.Application do
     end)
     children = [
       worker(BoothNanoleaf.Network, []),
-      worker(BoothNanoleaf.CO2, []),
-      #worker(BoothNanoleaf.Twitter, []),
+      worker(BoothNanoleaf.TweetConsumer, []),
+      worker(BoothNanoleaf.Twitter, []),
+      #worker(BoothNanoleaf.CO2, []),
+
     ]
 
     opts = [strategy: :one_for_one, name: BoothNanoleaf.Supervisor]

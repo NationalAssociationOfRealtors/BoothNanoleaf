@@ -9,6 +9,17 @@ config :booth_nanoleaf, interface: :wlan0
 
 config :logger, level: :info
 
+config :nerves, :firmware,
+  rootfs_overlay: "config/rootfs_overlay"
+
+config :nerves_ntp, :ntpd, "/usr/sbin/ntpd"
+config :nerves_ntp, :servers, [
+  "0.pool.ntp.org",
+  "1.pool.ntp.org",
+  "2.pool.ntp.org",
+  "3.pool.ntp.org"
+]
+
 config :nerves_network, :default,
   wlan0: [
     ssid: System.get_env("SSID"),
@@ -37,7 +48,7 @@ config :twittex,
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
 config :bootloader,
-  init: [:nerves_runtime, :nerves_network, :ieq_gateway, :nanoleaf, :twittex, :gen_stage],
+  init: [:nerves_runtime, :nerves_network, :nerves_firmware_http, :nerves_ntp, :ieq_gateway, :nanoleaf, :twittex, :gen_stage],
   app: :booth_nanoleaf
 
 # Import target specific config. This must remain at the bottom

@@ -105,7 +105,7 @@ defmodule BoothNanoleaf.Twitter do
 
   def handle_info(:start, state) do
     Logger.info "Streaming: #{inspect @filter}"
-    :timer.sleep(5000)
+    :timer.sleep(25_000)
     {:ok, stream} = Twittex.stream(@filter, [min_demand: 1, max_demand: 10, stage: true])
     {:ok, tag} = GenStage.sync_subscribe(BoothNanoleaf.TweetConsumer, to: stream)
     {:noreply, state}

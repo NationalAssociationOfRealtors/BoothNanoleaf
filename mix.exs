@@ -59,7 +59,9 @@ defmodule BoothNanoleaf.Mixfile do
       {:ieq_gateway, "~> 0.1.4"},
       {:nanoleaf, github: "NationalAssociationofRealtors/nanoleaf"},
       {:twittex, "~> 0.3.4"},
-      {:gen_stage, "~> 0.12.2"}
+      {:gen_stage, "~> 0.12.2"},
+      {:cowboy, "~> 1.1"},
+      {:plug, "~> 1.4"}
     ] ++
     deps(@target)
   end
@@ -71,6 +73,8 @@ defmodule BoothNanoleaf.Mixfile do
       {:bootloader, "~> 0.1"},
       {:nerves_runtime, "~> 0.4"},
       {:nerves_network, "~> 0.3.4"},
+      {:nerves_ntp, github: "evokly/nerves_ntp"},
+      {:nerves_firmware_http, "~> 0.4.1"},
     ] ++ system(target)
   end
 
@@ -82,5 +86,4 @@ defmodule BoothNanoleaf.Mixfile do
     ["deps.precompile": ["nerves.precompile", "deps.precompile"],
      "deps.loadpaths":  ["deps.loadpaths", "nerves.loadpaths"]]
   end
-
 end

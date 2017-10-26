@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CO2</title>
+<head>
+<style>
+html {
+    min-width: 1040px;
+}
+body {
+    font-family:"Helvetica Neue", Helvetica, sans-serif;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 4em;
+    position:relative;
+    background-color: rgb(10,10,10);
+}
+#body {
+    position: left;
+}
+
+#display{
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  font-size: 15em;
+  color: #FFFFFF;
+}
+</style>
+
+<script type="text/javascript">
+var ws = null;
+
+function open(){
+  ws = new WebSocket("ws://"+window.location.host+"/ws");
+  ws.onopen = function(evt) {};
+  ws.onclose = function(evt) {
+      open();
+  };
+
+  ws.onmessage = function(evt){
+    try{
+      var evnt = JSON.parse(evt.data);
+      display(evnt.co2);
+    }catch(e){}
+  }
+
+  setInterval(function(){
+    ws.send("ping");
+  }, 21000)
+}
+
+function display(co2){
+  var ele = document.getElementById("display");
+  ele.innerHTML = co2 + " ppm";
+  var v = Math.min(1699, co2);
+  var color = rgbToHex(Math.round(v*0.15), 50, 255);
+  document.body.style.backgroundColor = color;
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+</script>
+
+</head>
+<body>
+<div id="display">400 ppm</div>
+<script type="text/javascript">
+open();
+</script>
+
+</body>

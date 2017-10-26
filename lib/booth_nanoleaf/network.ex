@@ -20,7 +20,7 @@ defmodule BoothNanoleaf.Network do
     case @target do
       "host" -> nil
       _ ->
-        Network.setup(interface)
+        Nerves.Network.setup(interface)
         SystemRegistry.register
     end
     {:ok, %{ interface: interface, ip_address: nil, connected: false }}

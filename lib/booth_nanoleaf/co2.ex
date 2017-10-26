@@ -11,7 +11,7 @@ defmodule BoothNanoleaf.CO2 do
     use GenEvent
     require Logger
 
-    def handle_event(%IEQGateway.IEQStation.State{} = device, parent) do
+    def handle_event(%IEQGateway.IEQStation.State{id: :"IEQStation-38"} = device, parent) do
       send(parent, device)
       {:ok, parent}
     end
@@ -47,13 +47,13 @@ defmodule BoothNanoleaf.CO2 do
 
   def handle_info(:start, state) do
     SSDP.Client.start()
-    :timer.sleep(5000)
+    :timer.sleep(25_000)
     Nanoleaf.Device.set_api_key(@nano, @api_key)
     IEQGateway.Events |> GenEvent.add_mon_handler(EventHandler, self())
     {:noreply, state}
   end
 
-  def handle_info(%IEQGateway.IEQStation.State{id: :"IEQStation-38"} = device, state) do
+  def handle_info(%IEQGateway.IEQStation.State{} = device, state) do
     Logger.info "#{__MODULE__}: Got data: #{inspect device}"
     current = [1699, device.co2] |> Enum.min
     co2 = state.co2 |> Enum.drop(-1) |> (fn l -> [current] ++ l end).()

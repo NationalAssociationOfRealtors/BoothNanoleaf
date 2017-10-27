@@ -21,7 +21,7 @@ body {
     position: left;
 }
 
-#display{
+.display{
   text-align: center;
   margin: auto;
   width: 100%;
@@ -43,7 +43,7 @@ function open(){
   ws.onmessage = function(evt){
     try{
       var evnt = JSON.parse(evt.data);
-      display(evnt.co2);
+      display(evnt);
     }catch(e){}
   }
 
@@ -52,27 +52,30 @@ function open(){
   }, 21000)
 }
 
-function display(co2){
-  var ele = document.getElementById("display");
-  ele.innerHTML = co2 + " ppm";
-  var v = Math.min(1699, co2);
+function display(evnt){
+  var co2 = document.getElementById("co2");
+  var hum = document.getElementById("humidity");
+  co2.innerHTML = evnt.co2 + " ppm";
+  hum.innerHTML = evnt.humidity + " %";
+  var v = Math.min(1699, evnt.co2);
   var color = rgbToHex(Math.round(v*0.15), 50, 255);
   document.body.style.backgroundColor = color;
 }
 
 function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 </script>
 
 </head>
 <body>
-<div id="display">400 ppm</div>
+<div id="co2" class="display">400 ppm</div>
+<div id="humidity" class="display">51%</div>
 <script type="text/javascript">
 open();
 </script>

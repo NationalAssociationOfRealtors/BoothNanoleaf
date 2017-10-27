@@ -14,7 +14,7 @@ defmodule BoothNanoleaf.TweetConsumer do
     {0, 71, 186}
   ]
 
-  @window 10_000#10 * 60_000
+  @window 10 * 60_000
   @num_windows 5
 
   def start_link() do
@@ -75,7 +75,7 @@ defmodule BoothNanoleaf.TweetConsumer do
     index = sorted |> Enum.find_index(fn i -> i == v end)
     {r, g, b} = @color_states |> Enum.at(index)
     id = @panels |> Enum.at(0)
-    "1 #{id} 3 0 71 186 1 2 255 255 255 0 2 #{r} #{g} #{b} 1 1"
+    "1 #{id} 3 255 50 255 1 2 255 255 255 0 2 #{r} #{g} #{b} 1 1"
   end
 
 end
@@ -84,7 +84,7 @@ defmodule BoothNanoleaf.Twitter do
   use GenServer
   require Logger
 
-  @filter "#worldseries"
+  @filter "#narannual"
 
   def start_link() do
     GenServer.start_link(__MODULE__, :ok, name: __MODULE__)

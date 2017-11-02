@@ -2,21 +2,22 @@ defmodule BoothNanoleaf.CO2 do
   use GenServer
   require Logger
 
-  @nano :"uuid:e8143b30-82ec-42c3-b63f-bc74061b1df6" #update this with the UDN of your nanoleaf
-  @panels [90, 58, 46, 70, 24, 166, 78, 18, 66, 136, 184, 252] # these are panel id's in order of rendering
-  @api_key "vKTBwxcVcoZokXin5LVeqhDSJ12m7x92"
-  @id "IEQStation-38"
+  @nano :"uuid:3aebec1d-2709-415e-a75a-88a1e0725dd3" #update this with the UDN of your nanoleaf
+  @panels [46, 178, 54, 132, 228, 235, 27, 120, 242, 110, 152, 149] # these are panel id's in order of rendering
+  @api_key "eqpcPdtQMrMUcQUkDT3HMFGyVoOg6NHl"
+  @id "IEQStation-22"
 
   defmodule EventHandler do
     use GenEvent
     require Logger
 
-    def handle_event(%IEQGateway.IEQStation.State{id: :"IEQStation-38"} = device, parent) do
+    def handle_event(%IEQGateway.IEQStation.State{id: :"IEQStation-22"} = device, parent) do
       send(parent, device)
       {:ok, parent}
     end
 
-    def handle_event(_device, parent) do
+    def handle_event(device, parent) do
+      #Logger.info "Data: #{inspect device}"
       {:ok, parent}
     end
 
@@ -59,6 +60,7 @@ defmodule BoothNanoleaf.CO2 do
     co2 = state.co2 |> Enum.drop(-1) |> (fn l -> [current] ++ l end).()
     multi = 0.15
     frame = gen_frame(co2, multi)
+    Logger.info "#{frame}"
     Nanoleaf.Device.write(@nano, %{write: %{command: "display", version: "1.0", animType: "custom", animData: frame, loop: false}})
     {:noreply, %{state | co2: co2}}
   end

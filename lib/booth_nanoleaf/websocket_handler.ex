@@ -7,7 +7,7 @@ defmodule BoothNanoleaf.WebSocketHandler do
     use GenEvent
     require Logger
 
-    def handle_event(%IEQGateway.IEQStation.State{id: :"IEQStation-38"} = device, parent) do
+    def handle_event(%IEQGateway.IEQStation.State{id: :"IEQStation-22"} = device, parent) do
       send(parent, device)
       {:ok, parent}
     end

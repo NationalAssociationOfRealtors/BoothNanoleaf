@@ -11,8 +11,8 @@ defmodule BoothNanoleaf.Application do
     end)
     children = [
       worker(BoothNanoleaf.Network, []),
-      worker(BoothNanoleaf.TweetConsumer, []),
-      worker(BoothNanoleaf.Twitter, []),
+      #worker(BoothNanoleaf.TweetConsumer, []),
+      #worker(BoothNanoleaf.Twitter, []),
       worker(BoothNanoleaf.CO2, []),
       Plug.Adapters.Cowboy.child_spec(:http, BoothNanoleaf.HTTPRouter, [], [port: @http_port, dispatch: dispatch]),
     ]
